@@ -1,0 +1,20 @@
+C:\Users\opilane\source\repos\KinoRudnev\bin\Debug\KinoRudnev.exe.config
+C:\Users\opilane\source\repos\KinoRudnev\bin\Debug\KinoRudnev.exe
+C:\Users\opilane\source\repos\KinoRudnev\bin\Debug\KinoRudnev.pdb
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.csprojAssemblyReference.cache
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.Kino.resources
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.Properties.Resources.resources
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.csproj.GenerateResource.cache
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.csproj.CoreCompileInputs.cache
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.exe
+C:\Users\opilane\source\repos\KinoRudnev\obj\Debug\KinoRudnev.pdb
+D:\Visual Studio\KinoRudnev\bin\Debug\KinoRudnev.exe.config
+D:\Visual Studio\KinoRudnev\bin\Debug\KinoRudnev.exe
+D:\Visual Studio\KinoRudnev\bin\Debug\KinoRudnev.pdb
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.csprojAssemblyReference.cache
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.Kino.resources
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.Properties.Resources.resources
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.csproj.GenerateResource.cache
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.csproj.CoreCompileInputs.cache
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.exe
+D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.pdb
