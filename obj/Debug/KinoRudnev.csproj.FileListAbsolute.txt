@@ -18,3 +18,13 @@ D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.csproj.GenerateResource.cache
 D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.csproj.CoreCompileInputs.cache
 D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.exe
 D:\Visual Studio\KinoRudnev\obj\Debug\KinoRudnev.pdb
+D:\GitVisual\Kino\bin\Debug\KinoRudnev.exe.config
+D:\GitVisual\Kino\bin\Debug\KinoRudnev.exe
+D:\GitVisual\Kino\bin\Debug\KinoRudnev.pdb
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.Kino.resources
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.Properties.Resources.resources
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.csproj.GenerateResource.cache
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.csproj.CoreCompileInputs.cache
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.exe
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.pdb
+D:\GitVisual\Kino\obj\Debug\KinoRudnev.csprojAssemblyReference.cache

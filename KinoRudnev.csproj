@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CinemaActions.cs" />
     <Compile Include="Kino.cs">
       <SubType>Form</SubType>
     </Compile>
