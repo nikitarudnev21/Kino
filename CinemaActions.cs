@@ -25,6 +25,10 @@ namespace KinoRudnev
             picInfo = PicInfo;
             ticketsfolder = tickFolder;
         }
+        public CinemaActions(string folder)
+        {
+            imgfolder = folder;
+        }
         public void OrderPlace(PictureBox pb)
         {
             SetImg(pb, "red");
@@ -34,6 +38,10 @@ namespace KinoRudnev
         {
             pb.Image = Image.FromFile($"{imgfolder + "chair" + type + "." + ext}");
             pb.Image.Tag = type;
+        }
+        public void SetBackImg(PictureBox pb)
+        {
+            pb.Image = Image.FromFile($"{imgfolder}cinemabg.jpg");
         }
         public string[] getPlace(PictureBox pb)
         {

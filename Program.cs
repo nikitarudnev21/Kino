@@ -16,7 +16,7 @@ namespace KinoRudnev
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Kino(10));
+            Application.Run(new numericPlaces());
         }
     }
 }

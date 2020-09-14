@@ -5,22 +5,26 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace KinoRudnev
 {
     public partial class Kino : Form
     {
-        public Kino(int rowsCount)
+        public Kino(int rowsCount, int placesCount)
         {
             InitializeComponent();
             Load += (s, e) =>
             {
                 List<string> picInfo = new List<string>();
+                Random rnd = new Random();
+                List<PictureBox> boxes = new List<PictureBox>();
                 int nameCounter = 0;
                 PictureBox[,] pictures = new PictureBox[rowsCount, rowsCount];
                 Label[] rows = new Label[rowsCount];
@@ -67,10 +71,11 @@ namespace KinoRudnev
                             pb.Name = $"PBox-{++nameCounter}";
                             Controls.Add(pb);
                             picInfo.Add($"false/{pb.Name}/");
-                                pb.Click += (se, ee) =>
-                                {
-                                    cinema.getPlaceStatus(cinema, pb);
-                                };
+                            boxes.Add(pb);
+                            pb.Click += (se, ee) =>
+                            {
+                               cinema.getPlaceStatus(cinema, pb);
+                            };
                             pb.MouseEnter += (se, ee) =>
                             {
                                 pb.Cursor = Cursors.Hand;
@@ -86,7 +91,7 @@ namespace KinoRudnev
                                 lblPlace.Visible = false;
                                 lblPlace.Text = "";
                             };
-                        }
+                    }
                 }
                 btnOrder.Click += (se, ee) =>
                 {
@@ -98,7 +103,16 @@ namespace KinoRudnev
                         {
                             if (allPlaces.ToList().Any(t => cinema.rightPic(t, pb)))
                             {
+                                string userMail = Interaction.InputBox("Email", "Введите email", "", 50, 50);
                                 cinema.OrderPlace(pb);
+                                MailMessage mail = new MailMessage();
+                                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+                                mail.From = new MailAddress("styx1338@gmail.com");
+                                mail.To.Add(userMail);
+                                mail.Subject = "Билет";
+                                mail.Body = "ряд место инфа";
+                                smtpClient.Port = 587;
+                                smtpClient.Send(mail);
                                 string currentpic = picInfo.Find(p => cinema.rightPic(p, pb));
                                 picInfo[picInfo.FindIndex(p => cinema.rightPic(p, pb))] = currentpic.Remove(currentpic.IndexOf("place="));
                             }
@@ -115,7 +129,12 @@ namespace KinoRudnev
                         if (places.Any(pl => pl.Contains("Column") && pl.Contains("Row") && cinema.rightPic(pl,pb)))
                         {
                             cinema.OrderPlace(pb);
+                            boxes.Remove(pb);
                         }
+                }
+                for (int i = 0; i < placesCount; i++)
+                {
+                    cinema.getPlaceStatus(cinema, boxes[rnd.Next(boxes.Count)]);
                 }
             };
         }
