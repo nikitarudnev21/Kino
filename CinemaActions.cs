@@ -10,24 +10,16 @@ namespace KinoRudnev
 {
     public  class CinemaActions
     {
-        public string imgfolder;
-        public string ticketsfolder;
         public int rowsCount;
         public Label[] rows;
         public Label[] columns;
         List<string> picInfo;
-        public CinemaActions(string folder, int RowsCount, List<string> PicInfo, string tickFolder)
+        public CinemaActions(int RowsCount, List<string> PicInfo)
         {
             rowsCount = RowsCount;
-            imgfolder = folder;
             rows = new Label[rowsCount];
             columns = new Label[rowsCount * 2];
             picInfo = PicInfo;
-            ticketsfolder = tickFolder;
-        }
-        public CinemaActions(string folder)
-        {
-            imgfolder = folder;
         }
         public void OrderPlace(PictureBox pb)
         {
@@ -36,12 +28,8 @@ namespace KinoRudnev
         }
         public  void SetImg(PictureBox pb, string type = "green", string ext = "png")
         {
-            pb.Image = Image.FromFile($"{imgfolder + "chair" + type + "." + ext}");
+            pb.Image = Image.FromFile($"{Paths.IMG_FOLDER + "chair" + type + "." + ext}");
             pb.Image.Tag = type;
-        }
-        public void SetBackImg(PictureBox pb)
-        {
-            pb.Image = Image.FromFile($"{imgfolder}cinemabg.jpg");
         }
         public string[] getPlace(PictureBox pb)
         {

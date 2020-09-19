@@ -40,3 +40,23 @@ C:\Users\opilane\Source\Repos\Kino\obj\Debug\KinoRudnev.exe
 C:\Users\opilane\Source\Repos\Kino\obj\Debug\KinoRudnev.pdb
 C:\Users\opilane\Source\Repos\Kino\obj\Debug\KinoRudnev.FilmInfo.resources
 C:\Users\opilane\Source\Repos\Kino\obj\Debug\KinoRudnev.numericPlaces.resources
+D:\Visual Studio\Kino\bin\Debug\KinoRudnev.exe.config
+D:\Visual Studio\Kino\bin\Debug\KinoRudnev.exe
+D:\Visual Studio\Kino\bin\Debug\KinoRudnev.pdb
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.csprojAssemblyReference.cache
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.numericPlaces.resources
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.FilmInfo.resources
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.Kino.resources
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.Properties.Resources.resources
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.csproj.GenerateResource.cache
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.csproj.CoreCompileInputs.cache
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.exe
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.pdb
+D:\Visual Studio\Kino\bin\Debug\PdfSharp.Charting.dll
+D:\Visual Studio\Kino\bin\Debug\PdfSharp.dll
+D:\Visual Studio\Kino\bin\Debug\PdfSharp.xml
+D:\Visual Studio\Kino\bin\Debug\PdfSharp.Charting.xml
+D:\Visual Studio\Kino\bin\Debug\de\PdfSharp.resources.dll
+D:\Visual Studio\Kino\bin\Debug\de\PdfSharp.Charting.resources.dll
+D:\Visual Studio\Kino\obj\Debug\KinoRudnev.csproj.CopyComplete
+D:\Visual Studio\Kino\bin\Debug\Zen.Barcode.Core.dll

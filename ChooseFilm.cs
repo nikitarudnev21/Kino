@@ -1,9 +1,19 @@
 ﻿using Microsoft.VisualBasic;
+using PdfSharp.Drawing;
+using PdfSharp.Drawing.BarCodes;
+using PdfSharp.Drawing.Layout;
+using PdfSharp.Pdf;
+using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,105 +26,63 @@ namespace KinoRudnev
         public numericPlaces()
         {
             int rowsCount = 0;
-            int placesCount = 0;
             bool filmChoosen = false;
-            string imgfolder = Application.StartupPath.Remove(Application.StartupPath.IndexOf("bin")).Replace(@"\", "/") + "Properties/img/";
             InitializeComponent();
             Load += (s, e) =>
             {
+                /*   SqlConnection sqlCon = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;
+                   AttachDbFilename={Paths.DB_PATH};
+                   Integrated Security=True;Connect Timeout=30");
+                   sqlCon.Open();
+                   SqlCommand sqlCommand = new SqlCommand("SELECT film from Films", sqlCon);
+                   SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                   string result = "";
+                   while (dataReader.Read())
+                   {
+                       result += Convert.ToString(dataReader["film"]);
+                       MessageBox.Show(Convert.ToString(dataReader["film"]));
+                   }
+                   sqlCon.Close();
+                   MessageBox.Show(result);*/
+                PDF.CheckFolders();
                 void SwitchrowsCount(PictureBox pb)
                 {
-                    if (pb.Name.ToLower().Contains("Tenet".ToLower()))
-                    {
-                        rowsCount = 10;
-                    }
-                    else if (pb.Name.ToLower().Contains("FastFur".ToLower()))
-                    {
-                        rowsCount = 8;
-                    }
-                    else if (pb.Name.ToLower().Contains("deadpool".ToLower()))
-                    {
-                        rowsCount = 9;
-                    }
-                    else if (pb.Name.ToLower().Contains("terminator5".ToLower()))
-                    {
-                        rowsCount = 7;
-                    }
+                    if (pb.Tag.ToString().ToLower().Contains("TENET".ToLower())) rowsCount = 10;
+                    else if (pb.Tag.ToString().ToLower().Contains("Furious 7".ToLower())) rowsCount = 8;
+                    else if (pb.Tag.ToString().ToLower().Contains("Deadpool 2".ToLower())) rowsCount = 9;
+                    else if (pb.Tag.ToString().ToLower().Contains("Terminator Gynesis".ToLower())) rowsCount = 7;
                 }
-                CinemaActions cinema = new CinemaActions(imgfolder);
-                PictureBox pbm = new PictureBox();
-                pbm.Location = new Point(0, 0);
-                pbm.Size = new Size(Size.Width, Size.Height);
-                cinema.SetBackImg(pbm);
-                pbm.SizeMode = PictureBoxSizeMode.StretchImage;
-                pbm.Enabled = false;
-                pbm.Name = "pbmain";
+                PictureBox pbm = new PictureBox()
+                {
+                    Enabled = false,
+                    Location = new Point(0, 0),
+                    Size = new Size(Size.Width, Size.Height),
+                    Image = Image.FromFile($"{Paths.IMG_FOLDER}cinemabg.jpg"),
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Name = "pbmain"
+                };
                 pbm.SendToBack();
                 Controls.Add(pbm);
-                List<Label> labels = new List<Label>();
-                labels.AddRange(Controls.OfType<Label>());
-                labels.ForEach(l => l.Visible = false);
                 List<PictureBox> pictures = new List<PictureBox>();
-                foreach (PictureBox pb in Controls.OfType<PictureBox>().Where(p =>p.Name!="pbmain"))
+                foreach (PictureBox pb in Controls.OfType<PictureBox>().Where(p => p.Name!="pbmain"))
                 {
                     pictures.Add(pb);
-                      foreach (Label lbl in labels)
-                      {
-                              if (lbl.Tag.ToString().ToLower() == pb.Tag.ToString().ToLower())
-                              {
-                                  lbl.Visible = true;
-                                  lbl.MouseEnter += (se, ee) =>
-                                  {
-                                      lbl.Cursor = Cursors.Hand;
-                                  };
-                                  lbl.MouseLeave += (se, ee) =>
-                                  {
-                                      lbl.Cursor = Cursors.Default;
-                                  };
-                                  lbl.Click += (se, ee) =>
-                                  {
-                                    SwitchrowsCount(pb);
-                                    Hide();
-                                    new FilmInfo(lbl.Tag.ToString(), rowsCount).Show();
-                                  };
-                              }
-                      }
-                   /* pb.MouseEnter += (se, ee) =>
-                    {
-                        labels.Find(l => pb.Tag.ToString().ToLower() == l.Tag.ToString().ToLower()).Visible = true;
-                    };
-                    pb.MouseLeave += (se, ee) =>
-                    {
-                        labels.Find(l => pb.Tag.ToString().ToLower() == l.Tag.ToString().ToLower()).Visible = false;
-                    };*/
                     pb.Click += (se, ee) =>
                     {
                         pictures.ForEach(p => {
                             p.BorderStyle = BorderStyle.None;
                             filmChoosen = false;
                         });
-                        pb.Focus();
                         pb.BorderStyle = BorderStyle.FixedSingle;
-                        pb.Tag+= "choosenFilm";
                         SwitchrowsCount(pb);
                         filmChoosen = true;
-                        PlacesNumeric.Maximum = rowsCount*20;
                     };
                 }
-                PlacesNumeric.KeyDown += (se, ee) =>
-                {
-                    ee.SuppressKeyPress = true;
-                    return;
-                };
-                PlacesNumeric.ValueChanged += (se, ee) =>
-                {
-                    placesCount = (int)PlacesNumeric.Value;
-                };
                 btnChoosePlace.Click += (se, ee) =>
                 {
                     if (filmChoosen)
                     {
-                        new Kino(rowsCount, placesCount).Show();
+                        new FilmInfo(pictures.Find(f => f.BorderStyle == BorderStyle.FixedSingle).Tag.ToString(), rowsCount).Show();
                         Hide();
                     }
                     else
