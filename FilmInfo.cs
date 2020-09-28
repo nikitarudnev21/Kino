@@ -14,7 +14,7 @@ namespace KinoRudnev
 {
     public partial class FilmInfo : Form
     {
-        public FilmInfo(string filmName, int rowsCount)
+        public FilmInfo(int rowsCount, Film film)
         {
             InitializeComponent();
             Load += (s, e) =>
@@ -44,8 +44,12 @@ namespace KinoRudnev
                 };
                 pbm.SendToBack();
                 Controls.Add(pbm);
-                lblFilm.Text = "Фильм:" + filmName;
-                lblPlacesCount.Text = "Зал: 5 (" + (rowsCount * 20) + " мест) + 3D";
+                lblFilm.Text = "Фильм:" + film.filmName;
+                lblPlacesCount.Text = $"Зал: {Math.Floor(GetRandomNumber(1,10))} (" + (rowsCount * 20) + " мест)";
+                if (film._3D)
+                {
+                    lblPlacesCount.Text += " 3D";
+                }
                 lblAvailablePlaces.Text = "Свободных мест:" + availablePlaces;
                 dateTimeSeans.Format = DateTimePickerFormat.Short;
                 dateTimeSeans.ShowUpDown = true;
@@ -84,6 +88,7 @@ namespace KinoRudnev
                 dateTimeSeans.ValueChanged += (se, ee) =>
                 {
                     GenerateTimes();
+                    MessageBox.Show(dateTimeSeans.Value.ToLongTimeString());
                 };
                 PlacesNumeric.KeyDown += (se, ee) =>
                 {
@@ -103,7 +108,8 @@ namespace KinoRudnev
                 {
                     if (listBoxTimes.SelectedItems.Count!=0)
                     {
-                        new Kino(rowsCount, placesCount).Show();
+                        new Kino(rowsCount, placesCount, 
+                            dateTimeSeans.Value.ToString().Replace(" ", "/"), film.filmName).Show();
                         Hide();
                     }
                     else

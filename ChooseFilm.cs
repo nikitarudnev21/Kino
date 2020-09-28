@@ -30,27 +30,78 @@ namespace KinoRudnev
             InitializeComponent();
             Load += (s, e) =>
             {
-                /*   SqlConnection sqlCon = new SqlConnection($@"Data Source=(LocalDB)\MSSQLLocalDB;
-                   AttachDbFilename={Paths.DB_PATH};
-                   Integrated Security=True;Connect Timeout=30");
-                   sqlCon.Open();
-                   SqlCommand sqlCommand = new SqlCommand("SELECT film from Films", sqlCon);
-                   SqlDataReader dataReader = sqlCommand.ExecuteReader();
-                   string result = "";
-                   while (dataReader.Read())
-                   {
-                       result += Convert.ToString(dataReader["film"]);
-                       MessageBox.Show(Convert.ToString(dataReader["film"]));
-                   }
-                   sqlCon.Close();
-                   MessageBox.Show(result);*/
-                PDF.CheckFolders();
+                /* DB.SQL_CON.Open();
+                 SqlCommand sqlCommand = new SqlCommand("SELECT film from Films", DB.SQL_CON);
+                 SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                 List<string> filmNames = new List<string>();
+                 while (dataReader.Read())
+                 {
+                     result += Convert.ToString(dataReader["film"]);
+                      MessageBox.Show(Convert.ToString(dataReader["film"]));
+                     for (int i = 0; i < dataReader.FieldCount; i++)
+                     {
+                         filmNames.Add(dataReader.GetValue(i).ToString());
+                     }
+                 }
+                 DB.SQL_CON.Close();*/
+                /*  DB.SQL_CON.Open();
+                  SqlCommand sqlCommand1 = new SqlCommand("SELECT * FROM Films", DB.SQL_CON);
+                  SqlDataReader dataReader1 = sqlCommand1.ExecuteReader();
+                  string result = "";
+                  while (dataReader1.Read())
+                  {
+                      for (int i = 0; i < dataReader1.FieldCount; i++)
+                      {
+                          result += dataReader1["film"];
+                      }
+                  }
+                  DB.SQL_CON.Close();
+                  MessageBox.Show(result);*/
+                DB.SQL_CON.Open();
+                SqlCommand sqlCommand = new SqlCommand("SELECT * from Films", DB.SQL_CON);
+                SqlDataReader dataReader = sqlCommand.ExecuteReader();
+                while (dataReader.Read())
+                {
+                    Film film = new Film();
+                    film.filmName = dataReader["film"].ToString();
+                    film.rowsCount = (int)dataReader["rowsCount"];
+                    film.duration = (int)dataReader["Duration"];
+                    film.rating = (double)dataReader["Rating"];
+                    film.year = (int)dataReader["Year"];
+                    film._3D = (bool)dataReader["3D"];
+                    film.imageSrc = Paths.IMG_FOLDER + dataReader["image"];
+                    Film.films.Add(film);
+                }
+                DB.SQL_CON.Close();
+                for (int i = 0; i < Film.films.Count; i++)
+                {
+                    PictureBox pbx = new PictureBox();
+                    pbx.Location = new Point(20 + i * 320, 60);
+                    if (i>=4 && i!=0)
+                    {
+                        pbx.Location = new Point(20 + (i % 4)* 320, 370);
+                    }
+                    pbx.Image = Image.FromFile(Film.films[i].imageSrc);
+                    pbx.Tag = Film.films[i].filmName.ToString();
+                    pbx.Size = new Size(270, 287);
+                    pbx.SizeMode = PictureBoxSizeMode.StretchImage;
+                    Controls.Add(pbx);
+                    pbx.BringToFront();
+                }
                 void SwitchrowsCount(PictureBox pb)
                 {
-                    if (pb.Tag.ToString().ToLower().Contains("TENET".ToLower())) rowsCount = 10;
-                    else if (pb.Tag.ToString().ToLower().Contains("Furious 7".ToLower())) rowsCount = 8;
-                    else if (pb.Tag.ToString().ToLower().Contains("Deadpool 2".ToLower())) rowsCount = 9;
-                    else if (pb.Tag.ToString().ToLower().Contains("Terminator Gynesis".ToLower())) rowsCount = 7;
+                    Film.films.ForEach(f =>
+                    {
+                        if (f.filmName.ToLower() == pb.Tag.ToString().ToLower())
+                        {
+                            rowsCount = f.rowsCount;
+                            f.choosen = true;
+                        }
+                    });
+                    foreach (PictureBox box in Controls.OfType<PictureBox>().Where(p => p!=pb && p.Name!="pbmain"))
+                    {
+                        Film.films.Find(f => f.filmName.ToLower() == box.Tag.ToString().ToLower()).choosen = false;
+                    }
                 }
                 PictureBox pbm = new PictureBox()
                 {
@@ -82,7 +133,7 @@ namespace KinoRudnev
                 {
                     if (filmChoosen)
                     {
-                        new FilmInfo(pictures.Find(f => f.BorderStyle == BorderStyle.FixedSingle).Tag.ToString(), rowsCount).Show();
+                        new FilmInfo(rowsCount, Film.films.Find(f=>f.choosen)).Show();
                         Hide();
                     }
                     else

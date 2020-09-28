@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -22,11 +23,17 @@ namespace KinoRudnev
 {
     public partial class Kino : Form
     {
-        public Kino(int rowsCount, int placesCount)
+        public Kino(int rowsCount, int placesCount, string date, string filmName)
         {
             InitializeComponent();
             Load += (s, e) =>
             {
+                /*  string commandStr = $"If not exists (select name from sysobjects where name = ${filmName + date})" +
+                  $" CREATE TABLE {filmName + date}(Date datetime(50), Film(50), Places(int), AvailablePlaces(int), Hall(int))";
+                  DB.SQL_CON.Open();
+                  SqlCommand command = new SqlCommand(commandStr, DB.SQL_CON);
+                  command.ExecuteNonQuery();
+                  DB.SQL_CON.Close();*/
                 string MY_MAIL = "styx1338@gmail.com";
                 List<string> picInfo = new List<string>();
                 Random rnd = new Random();
@@ -146,7 +153,9 @@ namespace KinoRudnev
                         XTextFormatter tf = new XTextFormatter(gfx);
                         XRect rect = new XRect(0, 0, page.Width.Point, page.Height.Point);
                         tf.DrawString(ticketsStringPDF, font, XBrushes.Black, rect, XStringFormats.TopLeft);
-                        document.Save(Paths.TICKETS_FOLDER + "ticket.pdf");*/
+                        document.Save(Paths.TICKETS_FOLDER + "ticket.pdf");
+
+                         */
                         PDF.CheckFolders();
                         PDF.ClearFolders();
                         for (int i = 0; i < tickets.Count; i++)

@@ -65,6 +65,8 @@
       <DependentUpon>ChooseFilm.cs</DependentUpon>
     </Compile>
     <Compile Include="CinemaActions.cs" />
+    <Compile Include="DB.cs" />
+    <Compile Include="Film.cs" />
     <Compile Include="FilmInfo.cs">
       <SubType>Form</SubType>
     </Compile>
